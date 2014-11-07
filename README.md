@@ -5,6 +5,8 @@ I know, that AA could be easely decorated with Draper,
 but with [this](http://thepugautomatic.com/2014/03/draper/) article in mind I want to implement POROs-version.
 
 
+As the result there is should be "decorated" title visible in interface. But there is no.
+
 ### Environment
 
 Ruby 2.0.0p481
@@ -34,7 +36,7 @@ https://github.com/kiote/aa_plus_poro/blob/master/app/presenters/article_present
 ```ruby
 class ArticlePresenter < ModelPresenter
   def title
-    record + 'hello'
+    record.title + 'hello'
   end
 end
 ```
