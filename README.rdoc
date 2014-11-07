@@ -1,28 +1,16 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This is sample project. Aim: to understand, how to decorate active admin resorces with POROs (Plain Old Ruby Objects).
+I know, that AA could be easely decorated with Draper, 
+but with [this](http://thepugautomatic.com/2014/03/draper/) article in mind I want to implement POROs-version.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+===Environment
+
+Ruby 2.0.0p481
+
+Rails 4.0.11
+
+Active Admin 1.0.0.pre
+
+SQLite database
