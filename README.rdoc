@@ -2,7 +2,7 @@
 
 This is sample project. Aim: to understand, how to decorate active admin resorces with POROs (Plain Old Ruby Objects).
 I know, that AA could be easely decorated with Draper, 
-but with [this](http://thepugautomatic.com/2014/03/draper/) article in mind I want to implement POROs-version.
+but with this http://thepugautomatic.com/2014/03/draper/ article in mind I want to implement POROs-version.
 
 
 ===Environment
