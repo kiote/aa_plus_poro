@@ -26,8 +26,16 @@ https://github.com/kiote/aa_plus_poro/blob/master/app/admin/article.rb
 ```ruby
 ActiveAdmin.register Article do
   decorate_with ArticlePresenter
+
   permit_params :title
+
+  index do
+    column :id
+    column :title
+    column :hello
+  end
 end
+
 ```
 
 #### ArcticlePresenter
@@ -42,12 +50,6 @@ class ArticlePresenter < DelegateClass(Article)
 
   def self.model_name
     ActiveModel::Name.new Article
-  end
-
-  class DecoratedEnumerableProxy < DelegateClass(ActiveRecord::Relation)
-    def klass
-      ArticlePresenter
-    end
   end
 
   def hello
@@ -93,7 +95,7 @@ module Delegated
 
     delegate :as_json, :collect, :map, :each, :[], :all?, :include?, :first, :last, :shift, :to => :decorated_collection
 
-    # this really makes module not su useful
+    # this really makes module not so useful
     def klass
       ArticlePresenter
     end
