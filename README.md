@@ -5,7 +5,7 @@ I know, that AA could be easely decorated with Draper,
 but with [this](http://thepugautomatic.com/2014/03/draper/) article in mind I want to implement POROs-version.
 
 
-As the result there is should be "decorated" title visible in interface. But there is no.
+As the result there is should be "decorated" title visible in the admin interface. 
 
 ### Environment
 
@@ -34,46 +34,82 @@ end
 https://github.com/kiote/aa_plus_poro/blob/master/app/presenters/article_presenter.rb
 
 ```ruby
-class ArticlePresenter < ModelPresenter
-  def title
-    record.title + 'hello'
+require 'delegated'
+
+class ArticlePresenter < DelegateClass(Article)
+  include Delegated
+  include ActionView::Helpers::UrlHelper
+
+  def self.model_name
+    ActiveModel::Name.new Article
+  end
+
+  class DecoratedEnumerableProxy < DelegateClass(ActiveRecord::Relation)
+    def klass
+      ArticlePresenter
+    end
+  end
+
+  def hello
+    "Hello, #{title}"
   end
 end
 ```
 
-#### ModelPresenter
+#### Delegated module
 
-https://github.com/kiote/aa_plus_poro/blob/master/app/presenters/model_presenter.rb
+https://github.com/kiote/aa_plus_poro/blob/master/app/presenters/delegated.rb
 
 ```ruby
-class ModelPresenter
-  # @return the object being decorated.
-  attr_reader :record
+module Delegated
+  extend ActiveSupport::Concern
 
-  class << self
-    alias_method :decorate, :new
+  def helpers
+    ActionController::Base.helpers
   end
 
-  def options
-    {}
+  included do
+    delegate :url_helpers, to: "Rails.application.routes"
+    alias :h :url_helpers
   end
 
-  def initialize(record, _ = {})
-    @record = record
+  module ClassMethods
+    def decorate(*args)
+      collection_or_object = args[0]
+      if collection_or_object.respond_to?(:to_ary)
+        DecoratedEnumerableProxy.new(collection_or_object)
+      else
+        new(collection_or_object)
+      end
+    end
+
+    def helpers
+      ActionController::Base.helpers
+    end
   end
 
-  # Delegates missing instance methods to the source object.
-  def method_missing(method, *args, &block)
-    record.send(method, *args, &block)
-  end
+  class DecoratedEnumerableProxy < DelegateClass(ActiveRecord::Relation)
+    include Enumerable
 
-  def respond_to?(symbol)
-    super || record.respond_to?(symbol)
-  end
+    delegate :as_json, :collect, :map, :each, :[], :all?, :include?, :first, :last, :shift, :to => :decorated_collection
 
-  # decorate only with ArticlePresenter here to be simple
-  def decorated_collection
-    @decorated_collection ||= record.map { |article| ArticlePresenter.new(article) }
+    # this really makes module not su useful
+    def klass
+      ArticlePresenter
+    end
+
+    def wrapped_collection
+      __getobj__
+    end
+
+    def decorated_collection
+      @decorated_collection ||= wrapped_collection.collect { |member| klass.decorate(member) }
+    end
+    alias_method :to_ary, :decorated_collection
+
+    def each(&blk)
+      to_ary.each(&blk)
+    end
   end
 end
 ```
