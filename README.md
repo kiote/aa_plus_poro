@@ -33,6 +33,7 @@ ActiveAdmin.register Article do
     column :id
     column :title
     column :hello
+    column :link_title
   end
 end
 
@@ -46,7 +47,6 @@ require 'delegated'
 
 class ArticlePresenter < DelegateClass(Article)
   include Delegated
-  include ActionView::Helpers::UrlHelper
 
   def self.model_name
     ActiveModel::Name.new Article
@@ -54,6 +54,10 @@ class ArticlePresenter < DelegateClass(Article)
 
   def hello
     "Hello, #{title}"
+  end
+
+  def link_title
+    helpers.link_to(id, url_helpers.admin_article_path(self))
   end
 end
 ```
@@ -72,7 +76,6 @@ module Delegated
 
   included do
     delegate :url_helpers, to: "Rails.application.routes"
-    alias :h :url_helpers
   end
 
   module ClassMethods
