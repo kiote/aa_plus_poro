@@ -8,7 +8,6 @@ module Delegated
 
   included do
     delegate :url_helpers, to: "Rails.application.routes"
-    alias :h :url_helpers
   end
 
   module ClassMethods
@@ -31,6 +30,7 @@ module Delegated
 
     delegate :as_json, :collect, :map, :each, :[], :all?, :include?, :first, :last, :shift, :to => :decorated_collection
 
+    # this really makes module not so useful
     def klass
       ArticlePresenter
     end
