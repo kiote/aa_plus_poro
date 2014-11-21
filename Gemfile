@@ -16,3 +16,7 @@ gem 'turbolinks'
 
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'devise'
+
+group :development do
+  gem 'pry'
+end

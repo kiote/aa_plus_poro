@@ -14,7 +14,8 @@ module Delegated
     def decorate(*args)
       collection_or_object = args[0]
       if collection_or_object.respond_to?(:to_ary)
-        DecoratedEnumerableProxy.new(collection_or_object)
+        class_name = collection_or_object.class.to_s.demodulize.gsub('ActiveRecord_Relation_', '')
+        DecoratedEnumerableProxy.new(collection_or_object, class_name)
       else
         new(collection_or_object)
       end
@@ -30,9 +31,13 @@ module Delegated
 
     delegate :as_json, :collect, :map, :each, :[], :all?, :include?, :first, :last, :shift, :to => :decorated_collection
 
-    # this really makes module not so useful
+    def initialize(collection, class_name)
+      super(collection)
+      @class_name = class_name
+    end
+
     def klass
-      ArticlePresenter
+      "#{@class_name}Presenter".constantize
     end
 
     def wrapped_collection
