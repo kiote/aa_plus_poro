@@ -33,8 +33,8 @@ ActiveAdmin.register Article do
   index do
     column :id
     column :title
-    column :hello
-    column :link_title
+    column :hello       #delegated
+    column :link_title  #delegated
   end
 end
 
