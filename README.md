@@ -4,8 +4,9 @@ This is sample project. Aim: to understand, how to decorate active admin resorce
 I know, that AA could be easely decorated with Draper, 
 but with [this](http://thepugautomatic.com/2014/03/draper/) article in mind I want to implement POROs-version.
 
-
 As the result there is should be "decorated" title visible in the admin interface. 
+
+You could also follow the discussion here: https://github.com/activeadmin/activeadmin/issues/3600
 
 ### Environment
 
