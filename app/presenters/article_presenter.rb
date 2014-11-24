@@ -8,6 +8,10 @@ class ArticlePresenter < DelegateClass(Article)
     ActiveModel::Name.new Article
   end
 
+  def self.columns
+    Article.columns
+  end
+
   def hello
     "Hello, #{title}"
   end
