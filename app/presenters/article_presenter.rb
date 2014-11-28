@@ -2,7 +2,7 @@
 require 'delegated'
 
 class ArticlePresenter < DelegateClass(Article)
-  include Delegated
+  include ActiveAdminPoroDecorator
 
   def self.model_name
     ActiveModel::Name.new Article

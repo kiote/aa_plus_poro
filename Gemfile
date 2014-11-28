@@ -17,6 +17,8 @@ gem 'turbolinks'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'devise'
 
+gem 'activeadmin-poro-decorator', github: 'kiote/activeadmin-poro-decorator'
+
 group :development do
   gem 'pry'
 end
