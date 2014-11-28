@@ -128,3 +128,14 @@ module Delegated
   end
 end
 ```
+
+#### Poroaa gem
+
+You can use [poroaa](https://github.com/kiote/poroaa) gem:
+
+Gemfile
+```ruby
+gem 'poroaa', github: 'kiote/poroaa'
+```
+
+This gem jsut contains ```Delegated``` module

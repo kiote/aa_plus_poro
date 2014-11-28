@@ -1,6 +1,4 @@
 # inspired by https://github.com/activeadmin/activeadmin/blob/a180c76f17480715948bff2ead827f338d95a835/spec/support/templates/post_decorator.rb
-require 'delegated'
-
 class ArticlePresenter < DelegateClass(Article)
   include ActiveAdminPoroDecorator
 

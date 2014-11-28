@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git://github.com/kiote/activeadmin-poro-decorator.git
-  revision: 5425c6b6e0e85701e0a098ef3f80c9e471b00522
+  revision: 9528e97d9b9d17d0a1148f09d5a2ee342c5e8d54
   specs:
     activeadmin-poro-decorator (0.0.3)
 
