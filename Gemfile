@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.11'
+gem 'rails', '4.1.8'
 
 gem 'sqlite3'
 
@@ -21,4 +21,5 @@ gem 'activeadmin-poro-decorator'
 
 group :development do
   gem 'pry'
+  gem 'web-console', '~> 2.0'
 end
